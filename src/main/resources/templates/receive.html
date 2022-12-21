@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+
+<head th:insert="fragments/fragments.html :: head('Receive Logs')"></head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <section th:replace="fragments/fragments.html :: alert_box"></section>
+        <div class="inner">
+
+            <!-- Header -->
+            <header th:replace="fragments/fragments.html :: page_header"></header>
+
+            <section>
+                <header class="main">
+                    <h1>Receiving Log</h1>
+                </header>
+
+                <div class="row">
+                    <form method="get" action="/log/received">
+                        <ul class="actions">
+                            <li><h3>Filters: </h3></li>
+                            <li><label>Per Page
+                                    <input max="100" type="number" id="perPage" name="perPage" placeholder="30" style="width: 3.2em">
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <select name="display" style="height: 2em">
+                                        <option value>Any Status</option>
+                                        <option value="CLOSED">Closed</option>
+                                        <option value="OPEN">Open</option>
+                                    </select>
+                                </label>
+                            </li>
+                            <li>
+                                <label>From
+                                    <input type="date" name="from" id="from" placeholder="From">
+                                </label>
+                            </li>
+                            <li>
+                                <label>To
+                                    <input type="date" name="to" id="to" placeholder="To">
+                                </label>
+                            </li>
+                            <li><input type="submit" class="primary small"></li>
+                        </ul>
+                    </form>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th style="width:25%">Name</th>
+                            <th style="width:20%">PO</th>
+                            <th style="width:15%">Status</th>
+                            <th style="width:20%">Last Touched By</th>
+                            <th style="width:20%">Date Touched</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <!--/*@thymesVar id="receiveObject" type="net.northern.crm.persistence.dto.ReceivedDTO"*/-->
+                        <tr th:each="receiveObject : ${list}">
+                            <td th:text="${receiveObject.getName()}">AFI scents</td>
+                            <td th:text="${receiveObject.getPo()}">SomePO</td>
+                            <td th:style="${receiveObject.isClosed() ? 'color:orange;' : 'color:green;'}" th:text="${receiveObject.isClosed() ? 'Closed' : 'Open'}">For Sure</td>
+                            <td th:text="${receiveObject.getUser().getUsername()}">Some guy</td>
+                            <td th:text="${receiveObject.getTimestamp().toLocaleString()}">Maypril 35rd, 2142 @ 27:72bm</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div th:remove="tag" th:utext="${page_links}"></div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/fragments.html :: sidebar"></div>
+
+</div>
+
+<!-- Scripts -->
+<div th:replace="fragments/fragments.html :: scripts"></div>
+
+</body>
+</html>

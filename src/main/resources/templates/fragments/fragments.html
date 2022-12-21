@@ -1,0 +1,137 @@
+<head th:fragment="head(title)">
+    <title th:text="${title}">Default Title</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bar.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<!-- Only displays if a message has been sent via redirect or model -->
+<div class="alert-parent" th:fragment="alert_box" th:if="${param.message != null || message != null}">
+    <div th:if="${param.message != null}" th:class="'bar ' + ${#strings.toLowerCase(param.alert_level)}">
+        <span th:text="${param.message} ?: 'Take a screenshot and submit a ticket'"></span>
+    </div>
+    <div th:if="${message != null}" th:class="'bar ' + ${#strings.toLowerCase(alert_level)}">
+        <span th:text="${message} ?: 'Take a screenshot and submit a ticket'"></span>
+    </div>
+</div>
+
+<header th:fragment="page_header" id="header">
+    <a href="/" class="logo"><strong>C&C Candle Co.</strong> Manufacturing Resource Tracking System</a>
+    <div class="notiContainer">
+        <a id="notiBell" href="#" onclick="displayNoti()" th:text="' ' + ${notiList.size()}" th:style="${notiList.size() > 0 ? 'color:red' : ''}" class="icon solid fa-bell">12</a>
+        <div id="notiDropdown">
+            <ul class="alt">
+                <!--/*@thymesVar id="noti" type="net.northern.crm.persistence.dto.NotificationDTO"*/-->
+                <li th:each="noti : ${notiList}">
+                    <h4 th:text="${noti.getTitle()}"></h4>
+                    <p><i th:text="${noti.getFormattedCreatedDate()}"></i></p>
+                    <span th:utext="${noti.getSummary()}"></span>
+                    <form th:attr="data-id=${noti.getNotificationId()}" onsubmit="dismissNoti(this)">
+                        <input type="submit" value="DISMISS" class="small primary" />
+                    </form>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div th:fragment="scripts">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/browser.min.js"></script>
+    <script src="/js/breakpoints.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/password_matcher.js"></script>
+    <script src="/js/notifications.js"></script>
+</div>
+
+<div th:fragment="sidebar" id="sidebar">
+    <div class="inner">
+
+        <!--        &lt;!&ndash; Search &ndash;&gt;
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Search" />
+                    </form>
+                </section>-->
+
+        <!-- Menu -->
+        <nav id="menu">
+            <header class="major">
+                <h2>Menu</h2>
+            </header>
+            <ul>
+                <li><a href="/">Homepage</a></li>
+                <li><a href="/qb">Quickbooks Connection</a></li>
+                <li><a href="/users">Manage Users</a></li>
+                <li>
+                    <span class="opener">Location Tools</span>
+                    <ul>
+                        <li><a href="/location">Manage Locations</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="opener">View Logs</span>
+                    <ul>
+                        <li><a href="/log/manufactured">Manufacture Logs</a></li>
+                        <li><a href="/log/shipped">Sent Goods</a></li>
+                        <li><a href="/log/received">Received Goods</a></li>
+                        <li><a href="/log/cycle_counts">Cycle Counts</a></li>
+                    </ul>
+                </li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Section -->
+        <!--        <section>
+                    <header class="major">
+                        <h2>Ante interdum</h2>
+                    </header>
+                    <div class="mini-posts">
+                        <article>
+                            <a href="#" class="image"><img src="/images/pic07.jpg" alt="" /></a>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="/images/pic08.jpg" alt="" /></a>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="/images/pic09.jpg" alt="" /></a>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                        </article>
+                    </div>
+                    <ul class="actions">
+                        <li><a href="#" class="button">More</a></li>
+                    </ul>
+                </section>
+
+                &lt;!&ndash; Section &ndash;&gt;
+                <section>
+                    <header class="major">
+                        <h2>Get in touch</h2>
+                    </header>
+                    <p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                    <ul class="contact">
+                        <li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
+                        <li class="icon solid fa-phone">(000) 000-0000</li>
+                        <li class="icon solid fa-home">1234 Somewhere Road #8254<br />
+                            Nashville, TN 00000-0000</li>
+                    </ul>
+                </section>-->
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright">&copy; C&C Candle Co. All rights reserved. Design: <a href="https://html5up.net">HTML5
+                UP</a>.</p>
+        </footer>
+
+    </div>
+</div>
+

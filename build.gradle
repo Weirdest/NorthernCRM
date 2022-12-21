@@ -1,0 +1,50 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.2'
+	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+	id 'java'
+}
+
+group = 'net.northern.crm'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '18'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	//Spring
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-loader:2.7.3'
+	implementation 'org.thymeleaf:thymeleaf-spring5:3.0.15.RELEASE'
+	implementation 'org.springframework.boot:spring-boot-devtools:2.7.3'
+	implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
+	//QuickBooks
+	implementation ('com.intuit.quickbooks-online:ipp-v3-java-data:6.2.2')
+	implementation (group: 'com.intuit.quickbooks-online', name: 'ipp-v3-java-devkit', version: '6.2.2', classifier: 'jar-with-dependencies')
+	implementation (group: 'com.intuit.quickbooks-online', name: 'oauth2-platform-api', version: '6.2.2', classifier: 'jar-with-dependencies')
+
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'commons-io:commons-io:2.11.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+	//Misc
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootJar {
+	ZipEntryCompression.STORED
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+}

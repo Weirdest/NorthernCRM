@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+
+<head th:insert="fragments/fragments.html :: head('Main Page')"></head>
+
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+							<header th:replace="fragments/fragments.html :: page_header"></header>
+
+							<!-- Include page content here with thymeleaf -->
+							<div th:replace="fragments/elements.html"></div>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div th:replace="fragments/fragments.html :: sidebar"></div>
+
+			</div>
+
+		<!-- Scripts -->
+			<div th:replace="fragments/fragments.html :: scripts"></div>
+
+	</body>
+</html>

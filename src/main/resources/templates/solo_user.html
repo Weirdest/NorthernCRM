@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+
+<head th:insert="fragments/fragments.html :: head('User Details')"></head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <section th:replace="fragments/fragments.html :: alert_box"></section>
+        <div class="inner">
+
+            <!-- Header -->
+            <header th:replace="fragments/fragments.html :: page_header"></header>
+
+            <section th:if="${user != null}">
+
+                <header class="main">
+                    <h1>Manage User: <span th:text="${user.getUsername()}">username</span></h1>
+                </header>
+
+                <!-- Change details -->
+
+                <div class="row">
+                    <div class="col-4 col-12-small">
+                        <h2>Change Authorities</h2>
+                        <form th:action="@{'/users/' + ${user.getUsername()} + '/change_authorities'}" method="POST">
+                            <div th:each="authority: ${globalAuthorities}">
+                                <div th:if="${authority != 'ADMIN'}">
+                                    <!--suppress HtmlFormInputWithoutLabel -->
+                                    <input type="checkbox" th:id="${authority}" th:value="${authority}"
+                                           name="authorities" th:checked="${user.hasAuthority(authority)}">
+                                    <label th:text="${authority}" th:for="${authority}">Authority</label>
+                                </div>
+                            </div>
+
+                            <input type="submit" value="Submit" class="primary"/>
+                        </form>
+                    </div>
+
+                    <div class="col-4 col-12-small">
+                        <h2>Toggle Enabled/Disabled</h2>
+                        <form th:action="@{'/users/' + ${user.getUsername()} + '/change_state'}" method="POST">
+                            <label>
+                                <select style="width: inherit;" name="enabled">
+                                    <option th:selected="${user.isEnabled()}" value="true">Enabled</option>
+                                    <option th:selected="${!user.isEnabled()}" value="false">Disabled</option>
+                                </select>
+                            </label>
+
+                            <input type="submit" value="Submit" class="primary">
+                        </form>
+                    </div>
+
+                    <div class="col-4 col-12-small">
+                        <h2>Change Password</h2>
+                        <p>Password must be at least 6 characters long</p>
+                        <form autocomplete="off" id="password_form" th:action="@{'/users/' + ${user.getUsername()} + '/change_password'}"
+                              method="POST">
+                            <input style="display:none;" autocomplete="false">
+                            <label>
+                                <input id="pswd1" type="password" name="password" placeholder="Password" minlength="6"
+                                       maxlength="27" required/>
+                            </label>
+                            <label>
+                                <input id="pswd2" type="password" placeholder="Password (Again)" minlength="6"
+                                       maxlength="27" required/>
+                            </label>
+
+                            <input type="submit" value="Submit" class="primary">
+                        </form>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/fragments.html :: sidebar"></div>
+
+</div>
+
+<!-- Scripts -->
+<div th:replace="fragments/fragments.html :: scripts"></div>
+
+</body>
+</html>

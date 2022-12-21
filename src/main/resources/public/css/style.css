@@ -1,0 +1,42 @@
+body {
+    font-family: "Helvetica Neue",HelveticaNeue,Helvetica,Arial,sans-serif;
+}
+
+.imgLink {
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px;
+}
+
+#result {
+    white-space: pre-wrap;
+}
+
+.notiContainer {
+    position: relative;
+    text-align: end;
+    z-index: 999;
+}
+
+#notiDropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: #eee;
+    text-align: start;
+    padding: 1em;
+    border-radius: 1em;
+
+}
+
+#notiDropdown form {
+    margin: 1em 0 0 0;
+}
+
+#notiDropdown h4, #notiDropdown p {
+    margin: 0 0 0.25em 0;
+}
+
+#notiDropdown ul {
+    margin: 0;
+}

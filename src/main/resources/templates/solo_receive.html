@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+
+<head th:insert="fragments/fragments.html :: head('Main Page')"></head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <section th:replace="fragments/fragments.html :: alert_box"></section>
+        <div class="inner">
+
+            <!-- Header -->
+            <header th:replace="fragments/fragments.html :: page_header"></header>
+
+            <!--/*@thymesVar id="receive" type="net.northern.crm.persistence.dto.ReceivedDTO"*/-->
+            <section>
+                <header class="main">
+                    <h1>Receive Details</h1>
+                </header>
+
+                <table class="alt">
+                    <thead>
+                    <tr>
+                        <th>Received On</th>
+                        <th>Received By</th>
+                        <th>Purchase Order</th>
+                        <th>Closed</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${receive.getTimestamp()}"></td>
+                        <td th:text="${receive.getUser().getUsername()}"></td>
+                        <td th:text="${receive.getPo()}"></td>
+                        <td th:text="${receive.isClosed()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h4>Items Received</h4>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>SKU</th>
+                            <th>Number Received</th>
+                            <th>Destination</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <!--/*@thymesVar id="receiveItem" type="net.northern.crm.persistence.dto.ReceivedItemDTO"*/-->
+                        <tr th:each="receiveItem : ${receive.getItems()}">
+                            <td th:text="${receiveItem.getQbItem().getFqn()}">Thang:Thing</td>
+                            <td th:text="${receiveItem.getQbItem().getSku()}">SKU</td>
+                            <td th:text="${receiveItem.getQuantity()}">100000</td>
+                            <td th:text="${receiveItem.getLocation()}">Location</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/fragments.html :: sidebar"></div>
+
+</div>
+
+<!-- Scripts -->
+<div th:replace="fragments/fragments.html :: scripts"></div>
+
+</body>
+</html>

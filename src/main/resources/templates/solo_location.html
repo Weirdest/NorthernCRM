@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+
+<head th:insert="fragments/fragments.html :: head('Location Details')"></head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+  <!-- Main -->
+  <div id="main">
+    <section th:replace="fragments/fragments.html :: alert_box"></section>
+    <div class="inner">
+
+      <!-- Header -->
+      <header th:replace="fragments/fragments.html :: page_header"></header>
+
+      <section>
+        <header class="main">
+          <h1 style="margin-bottom: 0;">Location Details</h1>
+          <p>Type: <span th:if="${locationDetails != null}" th:text="${locationDetails.loc_type()}">loc_type</span></p>
+        </header>
+
+        <br>
+
+        <h3>Items found here</h3>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>SKU</th>
+                <th>Quantity</th>
+                <th>Quickbooks Category</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody th:if="${locationDetails != null}">
+              <tr th:each="item : ${locationDetails.itemsInLocation()}">
+                <td><p th:text="${item.sku}">SKU</p></td>
+                <td><p th:text="${item.quantity}">Quantity</p></td>
+                <td><p th:text="${item.qb_category}">Quickbooks Category</p></td>
+                <td><p th:text="${item.desc}">Description</p></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div th:replace="fragments/fragments.html :: sidebar"></div>
+
+</div>
+
+<!-- Scripts -->
+<div th:replace="fragments/fragments.html :: scripts"></div>
+
+</body>
+</html>

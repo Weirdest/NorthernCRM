@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+
+<head th:insert="fragments/fragments.html :: head('All Users')"></head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+
+        <section th:replace="fragments/fragments.html :: alert_box"></section>
+
+        <div class="inner">
+
+            <!-- Header -->
+            <header th:replace="fragments/fragments.html :: page_header"></header>
+
+
+
+            <section>
+                <header class="main">
+                    <h1>Manage Users</h1>
+                </header>
+
+                <div class="row">
+                    <div class="col-3 col-12-small">
+                        <header>
+                            <h2>Create User</h2>
+                        </header>
+                    </div>
+
+                    <div class="col-9 col-12-small" style="display: flex;align-items: center;">
+                        <form id="password_form" th:action="@{'/users'}" method="POST" style="margin: 0;">
+                            <ul class="actions">
+                                <li>
+                                    <label>
+                                        <input type="text" name="username" placeholder="Username"
+                                               minlength="4" required/>
+                                    </label>
+                                </li>
+
+                                <li style="display: flex; align-items: center; margin-left: 1em;">
+                                    <input id="checkbox_confirm" type="checkbox" required/>
+                                    <label for="checkbox_confirm"> Confirm</label>
+                                </li>
+
+                                <li>
+                                    <input type="submit" class="primary"/>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Include page content here with thymeleaf -->
+                <header>
+                    <h2>All Users</h2>
+                </header>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Authorities</th>
+                            <th>Is Enabled?</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <!--/*@thymesVar id="user" type="net.northern.crm.persistence.entities.UserEntity"*/-->
+                        <tr th:each="user : ${users}">
+                            <td><b>
+
+                                <a class="readable" th:text="${user.getUsername()}" th:href="@{'/users/' + ${user.getUsername()}}">Some Guy</a>
+                            </b></td>
+                            <td>
+                                <ul  style="margin: 0;">
+                                    <li th:each="authority : ${user.getAuthorities()}">
+                                        <!--/*@thymesVar id="authority" type="net.northern.crm.persistence.entities.AuthorityEntity"*/-->
+                                    <span
+                                            th:text="${authority.getAuthority()}">Maybe?</span>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td th:style="${user.isEnabled() ? 'color:green;' : 'color:red;'}" th:text="${user.isEnabled()}">For Sure</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/fragments.html :: sidebar"></div>
+
+</div>
+
+<!-- Scripts -->
+<div th:replace="fragments/fragments.html :: scripts"></div>
+
+</body>
+</html>

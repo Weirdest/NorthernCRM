@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+<head th:insert="fragments/fragments.html :: head('Main Page')"></head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <section th:replace="fragments/fragments.html :: alert_box"></section>
+        <div class="inner">
+
+            <!-- Header -->
+            <header th:replace="fragments/fragments.html :: page_header"></header>
+
+            <section>
+                <header class="main">
+                    <h1>SOME TITLE</h1>
+                </header>
+
+                <!-- Insert code here -->
+
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/fragments.html :: sidebar"></div>
+
+</div>
+
+<!-- Scripts -->
+<div th:replace="fragments/fragments.html :: scripts"></div>
+
+</body>
+</html>

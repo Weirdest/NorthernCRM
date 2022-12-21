@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html>
+
+<head th:insert="fragments/fragments.html :: head('All Locations')"></head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <section th:replace="fragments/fragments.html :: alert_box"></section>
+        <div class="inner">
+
+            <!-- Header -->
+            <header th:replace="fragments/fragments.html :: page_header"></header>
+
+            <section>
+                <header class="main">
+                    <h1>Manage Locations</h1>
+                </header>
+
+                <div class="row">
+                    <div class="col-3 col-12-small">
+                        <header>
+                            <h2>Create Location</h2>
+                        </header>
+                    </div>
+
+                    <div class="col-9 col-12-small" style="display: flex;align-items: center;">
+                        <form th:action="@{'/location'}" method="POST" style="margin: 0;">
+                            <ul class="actions">
+                                <li>
+                                    <label>
+                                        <input type="text" name="location" placeholder="Location"
+                                               minlength="4" required/>
+                                    </label>
+                                </li>
+
+                                <li style="display: flex; align-items: center; margin-left: 1em;">
+                                    <label>
+                                        <select name="loc_type" required>
+                                            <option value>Select a Location Type</option>
+                                            <option value="SHIPPING">Shipping</option>
+                                            <option value="STORAGE">Storage</option>
+                                            <option value="PRODUCTION">Production</option>
+                                        </select>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <input type="submit" class="primary"/>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Include page content here with thymeleaf -->
+                <header>
+                    <h2>All Locations</h2>
+                </header>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <!--/*@thymesVar id="location" type="net.northern.crm.persistence.entities.LocationEntity"*/-->
+                        <tr th:each="location : ${locations}">
+                            <td><b>
+                                <a class="readable" th:text="${location.getLocCode()}"
+                                   th:href="@{'/location/' + ${location.getLocCode()}}">Some Location</a>
+                            </b></td>
+                            <td th:text="${location.getType()}">Location Type</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/fragments.html :: sidebar"></div>
+
+</div>
+
+<!-- Scripts -->
+<div th:replace="fragments/fragments.html :: scripts"></div>
+
+</body>
+</html>
